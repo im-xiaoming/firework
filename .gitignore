@@ -1,0 +1,84 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# =========================
+# Django
+# =========================
+*.log
+*.pot
+*.pyc
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+
+# =========================
+# VSCode / IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Jupyter Notebook
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Machine Learning / Data
+# =========================
+# Dataset
+data/
+datasets/
+*.zip
+*.tar
+*.tar.gz
+
+# Model checkpoints
+*.pth
+*.pt
+*.ckpt
+
+# Tensorboard logs
+runs/
+logs/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Build / cache
+# =========================
+build/
+dist/
+*.egg-info/
+
+# =========================
+# Node (nếu có frontend)
+# =========================
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.swp
