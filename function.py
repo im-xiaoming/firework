@@ -6,3 +6,20 @@ def log_softmax(x):
         torch.sum(torch.exp(log_probs), dim=-1, keepdim=True)
     )
     return log_probs
+
+
+def taylor_softmax(x):
+    return (1 + x + 0.5 * x**2) / (torch.sum(1 + x + 0.5 * x**2, dim=-1, keepdim=True))
+
+
+def soft_margin_softmax(x, y, m):
+    
+    one_hot = torch.zeros_like(x, device=x.device)
+    one_hot.scatter_(1, y.reshape(-1, 1), 1.0)
+    
+    margin = x * one_hot - m + x * (1 - one_hot)
+    return margin - torch.log(
+        torch.exp(margin) + torch.sum(margin, dim=-1, keepdim=True)
+    )
+    
+        
