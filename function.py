@@ -9,8 +9,8 @@ def log_softmax(x):
 
 
 def taylor_softmax(x):
-    x = x - torch.max(x, dim=-1, keepdim=True)[0]
-    probs = (1 + x + 0.5 * x**2) / (torch.sum(1 + x + 0.5 * x**2, dim=-1, keepdim=True))
+    probs = x - torch.max(x, dim=-1, keepdim=True)[0]
+    probs = (1 + probs + 0.5 * probs**2) / (torch.sum(1 + probs + 0.5 * probs**2, dim=-1, keepdim=True))
     return torch.log(probs)
 
 
