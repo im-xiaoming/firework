@@ -16,7 +16,7 @@ def taylor_softmax(x):
 
 
 def soft_margin_softmax(x, y, m):
-    
+    x = x - torch.max(x, dim=-1, keepdim=True)[0]
     one_hot = torch.zeros_like(x, device=x.device)
     one_hot.scatter_(1, y.reshape(-1, 1), 1.0)
     
