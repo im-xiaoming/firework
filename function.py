@@ -9,7 +9,7 @@ def log_softmax(x):
 
 
 def taylor_softmax(x):
-    x = x / x.norm(dim=-1, keepdim=True).clamp(min=1e-6)
+    x = x - x.max(dim=-1, keepdim=True).values
     approx = (1 + x + 0.5 * x**2).clamp(min=0)
     probs = approx / approx.sum(dim=-1, keepdim=True)
     return probs
