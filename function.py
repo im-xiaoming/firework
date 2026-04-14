@@ -1,4 +1,5 @@
 import torch
+import torch.nn as nn
 
 def log_softmax(x):
     log_probs = x - torch.max(x, dim=-1, keepdim=True)[0]
@@ -8,11 +9,19 @@ def log_softmax(x):
     return log_probs
 
 
-def taylor_softmax(x):
-    x = x - x.max(dim=-1, keepdim=True).values
-    approx = (1 + x + 0.5 * x**2).clamp(min=0)
-    probs = approx / approx.sum(dim=-1, keepdim=True)
-    return probs
+class TaylorSoftmax(nn.Module):
+    def __init__(self, dim=-1):
+        super(TaylorSoftmax, self).__init__()
+        self.dim = dim
+
+    def forward(self, x):
+        x_max, _ = torch.max(x, dim=self.dim, keepdim=True)
+        x = x - x_max
+        
+        denorm = 1 + x + 0.5 * (x**2)
+        
+        probs = denorm / (denorm.sum(dim=self.dim, keepdim=True) + 1e-7)
+        return probs
 
 
 def log_soft_margin_softmax(x, y, m):
