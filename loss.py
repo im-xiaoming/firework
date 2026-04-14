@@ -4,7 +4,7 @@ from .function import log_softmax, taylor_softmax, log_soft_margin_softmax
 
 class CrossEntropyLoss(nn.Module):
     def __init__(self):
-        super(CrossEntropyLoss, self).__init__()
+        super().__init__()
     
     def forward(self, outputs, targets):
         log_probs = log_softmax(outputs)
@@ -23,11 +23,10 @@ class TaylorCrossEntropyLoss(nn.Module):
     
 class SMCrossEntropyLoss(nn.Module):
     def __init__(self, m=0.6):
-        super(TaylorCrossEntropyLoss, self).__init__()
+        super().__init__()
         self.m = m
-        
+
     def forward(self, outputs, targets):
         probs = log_soft_margin_softmax(outputs, targets, self.m)
         loss = -probs[torch.arange(outputs.size(0)), targets]
-        
         return loss.mean()
