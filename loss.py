@@ -14,13 +14,10 @@ class CrossEntropyLoss(nn.Module):
     
     
 class TaylorCrossEntropyLoss(nn.Module):
-    def __init__(self):
-        super(TaylorCrossEntropyLoss, self).__init__()
-        
     def forward(self, outputs, targets):
         probs = taylor_softmax(outputs)
-        loss = -probs[torch.arange(outputs.size(0)), targets]
-        
+        log_probs = torch.log(probs.clamp(min=1e-6))
+        loss = -log_probs[torch.arange(outputs.size(0)), targets]
         return loss.mean()
     
     
